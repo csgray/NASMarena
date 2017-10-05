@@ -1,3 +1,17 @@
+; adventure.asm
+; Corey S. Gray
+; Project for CS 301
+;
+; This is the start of a text-based adventure game written in assembly.
+; There is a program loop which makes function calls to prompt the user for input,
+; process that input through string comparison, and respond accordingly. Input, output,
+; and exiting are done through raw Linux system calls. 
+;
+; I want to add stats in .data for the player and monsters then make the game commands
+; do something appropriate like deal damage. That includes adding a random number generator
+; for more interesting combat. I also want to replace redundant code (the system calls)
+; with functions that take parameters.
+;
 ; Assemble: nasm -f elf64 adventure.asm
 ; Link: ld -m elf_x86_64 adventure.o -s -o adventure
 ; Run: ./adventure
