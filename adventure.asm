@@ -43,31 +43,47 @@ section .text           ; program code
 global _start
 
 _start:
-    call prompt         ; Prompts user to "attack", "defend", or "flee"
+    mov rsi, pro        ; Prompts user to "attack", "defend", or "flee"
+    mov rdx, proLen     ; length of string
+    call write
+    call read
+   
     call compareAttack  ; Checks if user attacks
     call compareDefend  ; Checks if user defends
     call compareFlee    ; Checks if user flees 
 
     jmp _start          ; Back to start of program loop
 
-exit:
-    mov rax, 60         ; system call number (sys_exit)
-    syscall
-
-prompt:
+; write
+; Uses Linux system calls to output to Terminal.
+; Requires two parameters moved into the following registries:
+;   rsi - the message to write
+;   rdx - the length of the message
+write:
     mov rax, 1          ; system call number (sys_write)
     mov rdi, 1          ; file descriptor (standard output)
-    mov rsi, pro        ; output string
-    mov rdx, proLen     ; length of string
     syscall
+    ret
 
+; read
+; Uses Linux system calls to reads user input from the Terminal.
+; Saves response to "inp" buffer.
+read:
     mov rax, 0          ; system call number (sys_read)
     mov rdi, 0          ; file descriptor (standard input)
     mov rsi, inp        ; input buffer
     mov rdx, inpLen     ; length of input
     syscall
-    ret   
+    ret 
 
+; exit
+; Uses Linux system calls to properly terminate the program.
+exit:
+    mov rax, 60         ; system call number (sys_exit)
+    syscall
+
+; compareAttack
+; Does string comparison to see if the user entered "attack".
 compareAttack:
     mov esi, inp        ; User input
     mov edi, att        ; Comparison string ("attack")
@@ -76,14 +92,16 @@ compareAttack:
     jecxz attack        ; Jump when ecx is 0 (strings match)
     ret
 
+; attack
+; Prints appropriate message if the user attacks.
 attack:
-    mov rax, 1          ; system call number (sys_write)
-    mov rdi, 1          ; file descriptor (standard output)
     mov rsi, attOut     ; output string
     mov rdx, attOutLen  ; length of string
-    syscall
+    call write
     ret
 
+; compareDefend
+; Does string comparison to see if the user entered "defend"
 compareDefend:
     mov esi, inp        ; User input (reload because cmpsb increments)
     mov edi, def        ; Comparison string ("defend")
@@ -92,14 +110,16 @@ compareDefend:
     jecxz defend        ; Jump when ecx is 0 (strings match)
     ret
 
+; defend
+; Prints appropriate message if the user defends.
 defend:
-    mov rax, 1          ; system call number (sys_write)
-    mov rdi, 1          ; file descriptor (standard output)
     mov rsi, defOut     ; output string
     mov rdx, defOutLen  ; length of string
-    syscall
+    call write
     ret
 
+; compareFlee
+; Does string comparison to see if the user entered "flee"
 compareFlee:
     mov esi, inp        ; User input (reload because cmpsb increments)
     mov edi, run        ; Comparison string ("flee")
@@ -108,10 +128,10 @@ compareFlee:
     jecxz flee          ; Jump when ecx is 0 (strings match)
     ret
 
+; flee
+; Prints appropriate message if the user flees and exits the program.
 flee:
-    mov rax, 1          ; system call number (sys_write)
-    mov rdi, 1          ; file descriptor (standard output)
     mov rsi, runOut     ; output string
     mov rdx, runOutLen  ; length of string
-    syscall
+    call write
     call exit
