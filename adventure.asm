@@ -17,6 +17,7 @@
 %INCLUDE "subadventure.asm" ; separate file for subroutines
 %INCLUDE "characters.asm"   ; character structs
 %INCLUDE "bestiary.asm"     ; monster structs
+%INCLUDE "title.asm"        ; title page
 
 section .bss            ; uninitialized variables (buffers)
     inp resb 10;
@@ -24,7 +25,7 @@ section .bss            ; uninitialized variables (buffers)
 
 section .data           ; initialized variables 
     ; Output strings
-    select db "Choose your character ('barbarian', 'bard', 'cleric', 'druid') or",0xa,"enter 'quit' to do just that:",0xa
+    select db "Choose your character ('barbarian', 'bard', 'cleric', 'druid') or 'quit':",0xa
     select_l EQU $ - select
     monster DB "Choose your opponent ('goblin', 'orc', or 'troll'):",0xa
     monster_l EQU $-monster
@@ -49,6 +50,11 @@ section .text           ; program code
 global _start
 
 _start:
+    mov rsi, title
+    mov rdx, title_l
+    call write
+
+selectCharacter:
     mov rsi, select
     mov rdx, select_l
     call write
@@ -65,7 +71,7 @@ _start:
     ;call compareRogue
     ;call compareSorcerer
     ;call compareWizard
-    jmp _start          ; Back to _start if invalid input
+    jmp selectCharacter          ; Back to character prompt if invalid input
 
 selectMonster:
     mov rsi, monster
