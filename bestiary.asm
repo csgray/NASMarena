@@ -4,15 +4,21 @@
 ;
 ; Monster structures for "adventure.asm" 
 
-STRUC Monster       ; uninitialized structure definition
-.armor:     RESD 1  ; int - number to beat to harm
-.health:    RESD 1  ; int - health points
-.attack:    RESD 1  ; int - bonus to attack
-.damage:    RESD 1  ; int - damage done
-.size:              ; total memory consumed by struc
-ENDSTRUC
+; Uses the Charcter struc defined in "charcters.asm"
+; STRUC Character     ; uninitialized structure definition
+; .init:      RESD 1  ; int - initiative modifier
+; .armor:     RESD 1  ; int - number to beat to harm
+; .health:    RESD 1  ; int - health points
+; .attack:    RESD 1  ; int - bonus to attack
+; .mindamage: RESD 1  ; int - minimum rolled damage
+; .maxdamage: RESD 1  ; int - maximum rolled damage
+; .bonus:     RESD 1  ; int - bonus damage
+; .flavor_l:  RESQ 1  ; size_t - length of flavor text
+; .flavor:    RESB 42 ; string - attack flavor text, needs to be as large as longest string
+; .size:              ; total memory consumed by struc
+; ENDSTRUC
 
-SEGMENT .data
+SECTION .data
 
 goblin:  ISTRUC Character    ; declares a "goblin" monster
 AT Character.armor, DD 16

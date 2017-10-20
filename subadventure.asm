@@ -26,11 +26,78 @@ read:
     syscall
     ret 
 
+; compareQuit
+; Does string comparison to see if the user entered "quit"
+; then exits the program if they did.
+compareQuit:
+    mov esi, inp        ; User input
+    mov edi, quit       ; Comparison string ("quit")
+    mov ecx, quit_l     ; Length of comparison string
+    repe cmpsb          ; Continue comparison if characters are equal
+    jecxz exit          ; Jump when ecx is 0 (strings match)
+    ret
+
 ; exit
 ; Uses Linux system calls to properly terminate the program.
 exit:
     mov rax, 60         ; system call number (sys_exit)
     syscall
+
+; compareBarbarian
+; Does string comparison to see if the user entered "barb".
+compareBarbarian:
+    mov esi, inp        ; User input
+    mov edi, barb       ; Comparison string ("barb")
+    mov ecx, 5          ; Length of comparison string + 1
+    repe cmpsb          ; Continue comparison if characters are equal
+    jecxz selectBarb    ; Jump when ecx is 0 (strings match)
+    ret
+
+selectBarb:
+    mov r8, barbarian
+    jmp combat
+
+; compareBard
+; Does string comparison to see if the user entered "bard".
+compareBard:
+    mov esi, inp        ; User input
+    mov edi, bard_s     ; Comparison string ("bard")
+    mov ecx, 5          ; Length of comparison string + 1
+    repe cmpsb          ; Continue comparison if characters are equal
+    jecxz selectBard    ; Jump when ecx is 0 (strings match)
+    ret
+
+selectBard:
+    mov r8, bard
+    jmp combat
+
+; compareCleric
+; Does string comparison to see if the user entered "cler".
+compareCleric:
+    mov esi, inp        ; User input
+    mov edi, cler       ; Comparison string ("cler")
+    mov ecx, 5          ; Length of comparison string + 1
+    repe cmpsb          ; Continue comparison if characters are equal
+    jecxz selectCleric  ; Jump when ecx is 0 (strings match)
+    ret
+
+selectCleric:
+    mov r8, cleric
+    jmp combat
+
+; compareDruid
+; Does string comparison to see if the user entered "drui".
+compareDruid:
+    mov esi, inp        ; User input
+    mov edi, drui       ; Comparison string ("drui")
+    mov ecx, 5          ; Length of comparison string + 1
+    repe cmpsb          ; Continue comparison if characters are equal
+    jecxz selectDruid   ; Jump when ecx is 0 (strings match)
+    ret
+
+selectDruid:
+    mov r8, druid
+    jmp combat
 
 ; compareAttack
 ; Does string comparison to see if the user entered "attack".
@@ -42,11 +109,10 @@ compareAttack:
     jecxz attack        ; Jump when ecx is 0 (strings match)
     ret
 
-; attack
-; Prints appropriate message if the user attacks.
 attack:
-    mov rsi, attOut
-    mov rdx, attOutLen
+    mov rsi, r8
+    add rsi, Character.flavor
+    mov rdx, [r8 + Character.flavor_l]
     call write
     ret
 
@@ -84,4 +150,4 @@ flee:
     mov rsi, runOut     ; output string
     mov rdx, runOutLen  ; length of string
     call write
-    call exit
+    jmp _start

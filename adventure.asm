@@ -16,7 +16,7 @@
 
 %INCLUDE "subadventure.asm" ; separate file for subroutines
 %INCLUDE "characters.asm"   ; character structs
-%INCLUDE "bestiary.asm"     ; monster structs
+;%INCLUDE "bestiary.asm"     ; monster structs
 
 section .bss            ; uninitialized variables (buffers)
     inp resb 10;
@@ -24,18 +24,18 @@ section .bss            ; uninitialized variables (buffers)
 
 section .data           ; initialized variables 
     ; Output strings
-    pro db "Enter your input ('attack', 'defend', or 'flee'):",0xa  ; string with new line
-    proLen equ $ - pro
-    attOut db "You attack!",0xa
-    attOutLen equ $ - attOut
-    damOut DB " damage!",0xa
-    dam_l EQU $ - damOut
+    select db "Choose your character ('barbarian', 'bard', 'cleric', 'druid') or",0xa,"enter 'quit' to do just that:",0xa
+    select_l EQU $ - select
+    commands db "Enter your input ('attack', 'defend', or 'flee'):",0xa  ; string with new line
+    commands_l equ $ - commands
     defOut db "You defend!",0xa
     defOutLen equ $ - defOut
     runOut db "Coward!",0xa
     runOutLen equ $ - runOut
     
     ; User commands
+    quit DB "quit"
+    quit_l EQU $-quit
     att db "attack"
     attlen equ $ - att
     def db "defend"
@@ -47,8 +47,27 @@ section .text           ; program code
 global _start
 
 _start:
-    mov rsi, pro        ; Prompts user to "attack", "defend", or "flee"
-    mov rdx, proLen     ; length of string
+    mov rsi, select
+    mov rdx, select_l
+    call write
+    call read
+    
+    call compareQuit
+    call compareBarbarian
+    call compareBard
+    call compareCleric
+    call compareDruid
+    ;call compareFighter
+    ;call comparePaladin
+    ;call compareRanger
+    ;call compareRogue
+    ;call compareSorcerer
+    ;call compareWizard
+    jmp _start          ; Back to _start if invalid input
+
+combat:    
+    mov rsi, commands   ; Prompts user to "attack", "defend", or "flee"
+    mov rdx, commands_l ; Length of string
     call write
     call read
    
@@ -56,4 +75,4 @@ _start:
     call compareDefend  ; Checks if user defends
     call compareFlee    ; Checks if user flees 
 
-    jmp _start          ; Back to start of program loop
+    jmp combat          ; Back to start of combat loop
