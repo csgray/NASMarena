@@ -13,7 +13,7 @@ STRUC Character     ; uninitialized structure definition
 .maxdamage: RESD 1  ; int - maximum rolled damage
 .bonus:     RESD 1  ; int - bonus damage
 .flavor_l:  RESQ 1  ; size_t - length of flavor text
-.flavor:    RESB 42 ; string - attack flavor text, needs to be as large as longest string
+.flavor:    RESB 45 ; string - attack flavor text, needs to be as large as longest string
 .size:              ; total memory consumed by struc
 ENDSTRUC
 

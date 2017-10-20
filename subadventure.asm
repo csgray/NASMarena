@@ -55,7 +55,7 @@ compareBarbarian:
 
 selectBarb:
     mov r8, barbarian
-    jmp combat
+    jmp selectMonster
 
 ; compareBard
 ; Does string comparison to see if the user entered "bard".
@@ -69,7 +69,7 @@ compareBard:
 
 selectBard:
     mov r8, bard
-    jmp combat
+    jmp selectMonster
 
 ; compareCleric
 ; Does string comparison to see if the user entered "cler".
@@ -83,7 +83,7 @@ compareCleric:
 
 selectCleric:
     mov r8, cleric
-    jmp combat
+    jmp selectMonster
 
 ; compareDruid
 ; Does string comparison to see if the user entered "drui".
@@ -97,6 +97,48 @@ compareDruid:
 
 selectDruid:
     mov r8, druid
+    jmp selectMonster
+
+; compareGoblin
+; Does string comparison to see if the user entered "gob".
+compareGoblin:
+    mov esi, inp        ; User input
+    mov edi, gob       ; Comparison string ("gob")
+    mov ecx, 4          ; Length of comparison string + 1
+    repe cmpsb          ; Continue comparison if characters are equal
+    jecxz selectGoblin  ; Jump when ecx is 0 (strings match)
+    ret
+
+selectGoblin:
+    mov r9, goblin
+    jmp combat
+
+; compareOrc
+; Does string comparison to see if the user entered "orc".
+compareOrc:
+    mov esi, inp        ; User input
+    mov edi, orc_s      ; Comparison string ("orc")
+    mov ecx, 4          ; Length of comparison string + 1
+    repe cmpsb          ; Continue comparison if characters are equal
+    jecxz selectOrc     ; Jump when ecx is 0 (strings match)
+    ret
+
+selectOrc:
+    mov r9, orc
+    jmp combat
+
+; compareTroll
+; Does string comparison to see if the user entered "tro".
+compareTroll:
+    mov esi, inp        ; User input
+    mov edi, tro        ; Comparison string ("tro")
+    mov ecx, 4          ; Length of comparison string + 1
+    repe cmpsb          ; Continue comparison if characters are equal
+    jecxz selectTroll  ; Jump when ecx is 0 (strings match)
+    ret
+
+selectTroll:
+    mov r9, troll
     jmp combat
 
 ; compareAttack
@@ -114,6 +156,7 @@ attack:
     add rsi, Character.flavor
     mov rdx, [r8 + Character.flavor_l]
     call write
+    call monAttack
     ret
 
 ; compareDefend
@@ -132,6 +175,7 @@ defend:
     mov rsi, defOut     ; output string
     mov rdx, defOutLen  ; length of string
     call write
+    call monAttack
     ret
 
 ; compareFlee
@@ -151,3 +195,12 @@ flee:
     mov rdx, runOutLen  ; length of string
     call write
     jmp _start
+
+; monAttack
+; Prints the selectMonster's attack message
+monAttack:
+    mov rsi, r9
+    add rsi, Character.flavor
+    mov rdx, [r9 + Character.flavor_l]
+    call write
+    ret

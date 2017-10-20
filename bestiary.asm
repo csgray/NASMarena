@@ -19,10 +19,43 @@
 ; ENDSTRUC
 
 SECTION .data
+; Monster select strings
+gob DB "gob"
+orc_s DB "orc"
+tro DB "tro"
 
-goblin:  ISTRUC Character    ; declares a "goblin" monster
+goblin:  ISTRUC Character   ; declares a "goblin" character
+AT Character.init, DD 6
 AT Character.armor, DD 16
 AT Character.health, DD 6
 AT Character.attack, DD 1
-AT Character.damage, DD 4
+AT Character.mindamage, DD 1
+AT Character.maxdamage, DD 4
+AT Character.bonus, DD 0
+AT Character.flavor_l, DQ 45
+AT Character.flavor, DB "The goblin attacks you with its short sword!",0xa
+IEND
+
+orc:  ISTRUC Character      ; declares a "orc" character
+AT Character.init, DD 0
+AT Character.armor, DD 13
+AT Character.health, DD 6
+AT Character.attack, DD 4
+AT Character.mindamage, DD 2
+AT Character.maxdamage, DD 8
+AT Character.bonus, DD 4
+AT Character.flavor_l, DQ 39
+AT Character.flavor, DB "The orc attacks you with its falchion!",0xa
+IEND
+
+troll:  ISTRUC Character    ; declares a "troll" character
+AT Character.init, DD 2
+AT Character.armor, DD 16
+AT Character.health, DD 63
+AT Character.attack, DD 8
+AT Character.mindamage, DD 1
+AT Character.maxdamage, DD 8
+AT Character.bonus, DD 5
+AT Character.flavor_l, DQ 21
+AT Character.flavor, DB "The troll bites you!",0xa
 IEND
