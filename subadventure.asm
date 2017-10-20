@@ -111,7 +111,7 @@ compareGoblin:
 
 selectGoblin:
     mov r9, goblin
-    jmp combat
+    jmp initiative
 
 ; compareOrc
 ; Does string comparison to see if the user entered "orc".
@@ -125,7 +125,7 @@ compareOrc:
 
 selectOrc:
     mov r9, orc
-    jmp combat
+    jmp initiative
 
 ; compareTroll
 ; Does string comparison to see if the user entered "tro".
@@ -139,7 +139,7 @@ compareTroll:
 
 selectTroll:
     mov r9, troll
-    jmp combat
+    jmp initiative
 
 ; compareAttack
 ; Does string comparison to see if the user entered "attack".
@@ -156,7 +156,6 @@ attack:
     add rsi, Character.flavor
     mov rdx, [r8 + Character.flavor_l]
     call write
-    call monAttack
     ret
 
 ; compareDefend
@@ -175,7 +174,6 @@ defend:
     mov rsi, defOut     ; output string
     mov rdx, defOutLen  ; length of string
     call write
-    call monAttack
     ret
 
 ; compareFlee

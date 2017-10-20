@@ -78,6 +78,12 @@ selectMonster:
     call compareTroll
     jmp selectMonster   ; Back to monster prompt if invalid input
 
+initiative:
+    mov rdi, [r8 + Character.init]
+    mov rsi, [r9 + Character.init]
+    cmp rdi, rsi        
+    jl monsterInit      ; Monster wins initiative if PC's init is lower
+
 combat:    
     mov rsi, commands   ; Prompts user to "attack", "defend", or "flee"
     mov rdx, commands_l ; Length of string
@@ -87,5 +93,8 @@ combat:
     call compareAttack  ; Checks if user attacks
     call compareDefend  ; Checks if user defends
     call compareFlee    ; Checks if user flees 
+
+monsterInit:
+    call monAttack
 
     jmp combat          ; Back to start of combat loop
