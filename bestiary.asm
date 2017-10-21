@@ -24,7 +24,7 @@ gob DB "gob"
 orc_s DB "orc"
 tro DB "tro"
 
-goblin:  ISTRUC Character   ; declares a "goblin" character
+goblin: ISTRUC Character    ; declares a "goblin" character
 AT Character.init, DD 6
 AT Character.armor, DD 16
 AT Character.health, DD 6
@@ -36,7 +36,7 @@ AT Character.flavor_l, DQ 45
 AT Character.flavor, DB "The goblin attacks you with its short sword!",0xa
 IEND
 
-orc:  ISTRUC Character      ; declares a "orc" character
+orc: ISTRUC Character       ; declares a "orc" character
 AT Character.init, DD 0
 AT Character.armor, DD 13
 AT Character.health, DD 6
@@ -48,7 +48,7 @@ AT Character.flavor_l, DQ 39
 AT Character.flavor, DB "The orc attacks you with its falchion!",0xa
 IEND
 
-troll:  ISTRUC Character    ; declares a "troll" character
+troll: ISTRUC Character     ; declares a "troll" character
 AT Character.init, DD 2
 AT Character.armor, DD 16
 AT Character.health, DD 63

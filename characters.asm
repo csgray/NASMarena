@@ -30,7 +30,7 @@ rogu DB "rogu"
 sorc DB "sorc"
 wiza DB "wiza"
 
-barbarian:  ISTRUC Character    ; declares a "barbarian" character
+barbarian: ISTRUC Character ; declares a "barbarian" character
 AT Character.init, DD 1
 AT Character.armor, DD 15
 AT Character.health, DD 15
@@ -42,7 +42,7 @@ AT Character.flavor_l, DQ 42
 AT Character.flavor, DB "You attack with your large bastard sword!",0xa
 IEND
 
-bard:  ISTRUC Character         ; declares a "bard" character
+bard: ISTRUC Character      ; declares a "bard" character
 AT Character.init, DD 2
 AT Character.armor, DD 15
 AT Character.health, DD 10
@@ -54,7 +54,7 @@ AT Character.flavor_l, DQ 34
 AT Character.flavor, DB "You attack with your short sword!",0xa
 IEND
 
-cleric:  ISTRUC Character       ; declares a "cleric" character
+cleric: ISTRUC Character    ; declares a "cleric" character
 AT Character.init, DD 0
 AT Character.armor, DD 16
 AT Character.health, DD 13
@@ -66,7 +66,7 @@ AT Character.flavor_l, DQ 31
 AT Character.flavor, DB "You attack with your scimitar!",0xa
 IEND
 
-druid:  ISTRUC Character        ; declares a "druid" character
+druid: ISTRUC Character     ; declares a "druid" character
 AT Character.init, DD 1
 AT Character.armor, DD 14
 AT Character.health, DD 11
@@ -78,7 +78,7 @@ AT Character.flavor_l, DQ 29
 AT Character.flavor, DB "You attack with your sickle!",0xa
 IEND
 
-fighter:  ISTRUC Character      ; declares a "fighter" character
+fighter: ISTRUC Character   ; declares a "fighter" character
 AT Character.init, DD 2
 AT Character.armor, DD 17
 AT Character.health, DD 16
@@ -90,7 +90,7 @@ AT Character.flavor_l, DQ 33
 AT Character.flavor, DB "You attack with your long sword!",0xa
 IEND
 
-paladain:  ISTRUC Character     ; declares a "paladin" character
+paladain: ISTRUC Character  ; declares a "paladin" character
 AT Character.init, DD 0
 AT Character.armor, DD 17
 AT Character.health, DD 13
@@ -102,7 +102,7 @@ AT Character.flavor_l, DQ 33
 AT Character.flavor, DB "You attack with your long sword!",0xa
 IEND
 
-ranger:  ISTRUC Character    ; declares a "ranger" character
+ranger: ISTRUC Character    ; declares a "ranger" character
 AT Character.init, DD 3
 AT Character.armor, DD 16
 AT Character.health, DD 12
@@ -114,7 +114,7 @@ AT Character.flavor_l, DQ 32
 AT Character.flavor, DB "You attack with your battleaxe!",0xa
 IEND
 
-rogue:  ISTRUC Character    ; declares a "rogue" character
+rogue: ISTRUC Character     ; declares a "rogue" character
 AT Character.init, DD 4
 AT Character.armor, DD 17
 AT Character.health, DD 10
@@ -126,7 +126,7 @@ AT Character.flavor_l, DQ 29
 AT Character.flavor, DB "You attack with your rapier!",0xa
 IEND
 
-sorcerer:  ISTRUC Character    ; declares a "sorcerer" character
+sorcerer: ISTRUC Character  ; declares a "sorcerer" character
 AT Character.init, DD 2
 AT Character.armor, DD 17
 AT Character.health, DD 8
@@ -138,7 +138,7 @@ AT Character.flavor_l, DQ 35
 AT Character.flavor, DB "You attack with your quarterstaff!",0xa
 IEND
 
-wizard:  ISTRUC Character       ; declares a "wizard" character
+wizard: ISTRUC Character    ; declares a "wizard" character
 AT Character.init, DD 2
 AT Character.armor, DD 16
 AT Character.health, DD 8
